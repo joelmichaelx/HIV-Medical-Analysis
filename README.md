@@ -580,17 +580,6 @@ For detailed roadmap, see [docs/ROADMAP.md](docs/ROADMAP.md)
 
 ---
 
-<div align="center">
-
-**Built with dedication for the global fight against HIV/AIDS**
-
-[Report Bug](https://github.com/joelmichaelx/HIV-Medical-Analysis/issues) · 
-[Request Feature](https://github.com/joelmichaelx/HIV-Medical-Analysis/issues)
-
-</div>
-
----
-
 ## Tips for Best Results
 
 1. Start with 5,000 patients for optimal performance
@@ -599,6 +588,3 @@ For detailed roadmap, see [docs/ROADMAP.md](docs/ROADMAP.md)
 4. Adjust filters to focus on specific demographics
 5. Export visualizations for presentations
 
----
-
-**Made with Streamlit, Python, and a passion for data-driven healthcare**
