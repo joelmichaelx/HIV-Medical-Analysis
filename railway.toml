@@ -1,0 +1,11 @@
+# Railway.app deployment configuration
+# Deploy at: https://railway.app
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "streamlit run src/visualization/dashboards/main_dashboard.py --server.port $PORT --server.address 0.0.0.0 --server.headless true"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
