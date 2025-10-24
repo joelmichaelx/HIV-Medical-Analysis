@@ -1,0 +1,181 @@
+# Data Source Configurations for HIV Medical Analytics Platform
+
+# World Health Organization (WHO)
+who:
+  name: "WHO Global Health Observatory"
+  base_url: "https://ghoapi.azureedge.net/api"
+  endpoints:
+    hiv_prevalence: "/HIV_0000000001"
+    art_coverage: "/HIV_0000000003"
+    new_infections: "/HIV_0000000026"
+  rate_limit: 100  # requests per minute
+  timeout: 30
+  retry_attempts: 3
+  indicators:
+    - "HIV_0000000001"  # People living with HIV
+    - "HIV_0000000003"  # ART coverage
+    - "HIV_0000000026"  # New HIV infections
+    - "HIV_0000000029"  # AIDS-related deaths
+    - "HIV_0000000045"  # Mother-to-child transmission
+
+# UNAIDS Data Portal
+unaids:
+  name: "UNAIDS AIDSInfo"
+  base_url: "https://aidsinfo.unaids.org/api/v1"
+  endpoints:
+    countries: "/countries"
+    indicators: "/indicators"
+    data: "/data"
+  rate_limit: 60
+  timeout: 30
+  indicators:
+    - "prevalence_15_49"
+    - "incidence_rate"
+    - "mortality_rate"
+    - "prep_coverage"
+    - "condom_use"
+    - "testing_coverage"
+    - "viral_suppression"
+
+# US Centers for Disease Control (CDC)
+cdc:
+  name: "CDC HIV Statistics"
+  base_url: "https://data.cdc.gov/resource"
+  endpoints:
+    diagnoses: "/hiv-diagnoses.json"
+    deaths: "/hiv-deaths.json"
+    prevalence: "/hiv-prevalence.json"
+  api_token_required: true
+  rate_limit: 1000
+  timeout: 30
+  app_token_env_var: "CDC_API_TOKEN"
+
+# PEPFAR Data
+pepfar:
+  name: "PEPFAR Panorama Spotlight"
+  base_url: "https://data.pepfar.gov/api"
+  endpoints:
+    treatment: "/treatment"
+    prevention: "/prevention"
+    testing: "/testing"
+  rate_limit: 100
+  timeout: 30
+  regions:
+    - "Sub-Saharan Africa"
+    - "Asia"
+    - "Latin America"
+    - "Caribbean"
+
+# Clinical Data Sources (Simulated/Mock for privacy)
+clinical:
+  name: "Clinical Database"
+  type: "postgresql"
+  host: "${DB_HOST}"
+  port: 5432
+  database: "hiv_clinical"
+  schema: "clinical_data"
+  tables:
+    patients: "patients"
+    diagnoses: "diagnoses"
+    treatments: "treatments"
+    lab_results: "lab_results"
+    viral_loads: "viral_loads"
+    cd4_counts: "cd4_counts"
+    drug_resistance: "drug_resistance"
+
+# Demographic Data
+demographics:
+  name: "Demographic Data"
+  type: "postgresql"
+  host: "${DB_HOST}"
+  port: 5432
+  database: "hiv_demographics"
+  tables:
+    populations: "population_data"
+    socioeconomic: "socioeconomic_indicators"
+    geographic: "geographic_data"
+
+# Real-time Streaming Data
+streaming:
+  name: "Kafka Streaming"
+  kafka_brokers:
+    - "${KAFKA_BROKER_1}"
+    - "${KAFKA_BROKER_2}"
+    - "${KAFKA_BROKER_3}"
+  topics:
+    new_diagnoses: "hiv.diagnoses.new"
+    lab_results: "hiv.labs.results"
+    treatment_updates: "hiv.treatment.updates"
+    alerts: "hiv.alerts"
+  consumer_group: "hiv-analytics"
+  auto_offset_reset: "earliest"
+  enable_auto_commit: true
+
+# External Research Datasets
+research:
+  # HIV Drug Resistance Database
+  stanford_hivdb:
+    name: "Stanford HIV Drug Resistance Database"
+    url: "https://hivdb.stanford.edu/pages/genotype-rx.html"
+    api_available: false
+    update_frequency: "monthly"
+  
+  # IHME Global Burden of Disease
+  ihme:
+    name: "IHME GBD"
+    url: "http://ghdx.healthdata.org/gbd-results-tool"
+    api_available: true
+    api_url: "http://api.healthdata.org/api/v1"
+  
+  # PubMed Research Articles
+  pubmed:
+    name: "PubMed"
+    base_url: "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+    api_key_env_var: "PUBMED_API_KEY"
+    search_terms:
+      - "HIV transmission"
+      - "HIV treatment outcomes"
+      - "antiretroviral resistance"
+      - "HIV prevention"
+
+# Data Update Schedules
+update_schedules:
+  who:
+    frequency: "daily"
+    time: "00:00"
+    timezone: "UTC"
+  
+  unaids:
+    frequency: "weekly"
+    day: "monday"
+    time: "01:00"
+    timezone: "UTC"
+  
+  cdc:
+    frequency: "weekly"
+    day: "wednesday"
+    time: "02:00"
+    timezone: "UTC"
+  
+  clinical:
+    frequency: "hourly"
+    timezone: "UTC"
+  
+  streaming:
+    frequency: "real-time"
+
+# Data Quality Thresholds
+quality_thresholds:
+  completeness: 0.95  # 95% of required fields must be populated
+  consistency: 0.98   # 98% consistency across sources
+  timeliness: 7       # Data should not be older than 7 days
+  accuracy: 0.99      # 99% accuracy in validation checks
+
+# Data Retention Policy
+retention:
+  raw_data: 365       # days
+  processed_data: 730 # days
+  analytics_data: 1825 # days (5 years)
+  models: 365         # days
+  logs: 90            # days
+

@@ -1,0 +1,451 @@
+# Machine Learning Configuration for HIV Analytics
+
+# General ML Settings
+general:
+  random_seed: 42
+  test_size: 0.2
+  validation_size: 0.2
+  cross_validation_folds: 5
+  stratify: true
+  scaling_method: "standard"  # standard, minmax, robust, none
+  
+# Feature Engineering
+features:
+  # Demographic Features
+  demographic:
+    - "age"
+    - "gender"
+    - "ethnicity"
+    - "country"
+    - "region"
+    - "urban_rural"
+  
+  # Clinical Features
+  clinical:
+    - "cd4_count"
+    - "viral_load"
+    - "diagnosis_date"
+    - "time_to_diagnosis"
+    - "who_clinical_stage"
+    - "comorbidities"
+    - "bmi"
+  
+  # Treatment Features
+  treatment:
+    - "art_regimen"
+    - "treatment_adherence"
+    - "treatment_duration"
+    - "treatment_changes"
+    - "side_effects"
+  
+  # Behavioral Features
+  behavioral:
+    - "transmission_route"
+    - "risk_behaviors"
+    - "substance_use"
+    - "sexual_partners"
+  
+  # Socioeconomic Features
+  socioeconomic:
+    - "education_level"
+    - "employment_status"
+    - "income_level"
+    - "health_insurance"
+    - "distance_to_clinic"
+  
+  # Temporal Features
+  temporal:
+    - "year_diagnosed"
+    - "month_diagnosed"
+    - "season"
+    - "time_since_diagnosis"
+    - "time_on_treatment"
+
+# Target Variables
+targets:
+  # Classification Targets
+  classification:
+    - name: "viral_suppression"
+      description: "Whether patient achieves viral suppression"
+      type: "binary"
+      positive_class: "suppressed"
+    
+    - name: "treatment_adherence"
+      description: "Treatment adherence level"
+      type: "multiclass"
+      classes: ["low", "medium", "high"]
+    
+    - name: "drug_resistance"
+      description: "Development of drug resistance"
+      type: "binary"
+      positive_class: "resistant"
+    
+    - name: "risk_category"
+      description: "Patient risk category"
+      type: "multiclass"
+      classes: ["low_risk", "medium_risk", "high_risk"]
+  
+  # Regression Targets
+  regression:
+    - name: "cd4_count_change"
+      description: "Change in CD4 count over time"
+      type: "continuous"
+    
+    - name: "viral_load_reduction"
+      description: "Reduction in viral load"
+      type: "continuous"
+    
+    - name: "time_to_suppression"
+      description: "Days until viral suppression"
+      type: "continuous"
+  
+  # Survival Analysis Targets
+  survival:
+    - name: "time_to_aids"
+      description: "Time from diagnosis to AIDS"
+      event_column: "aids_progression"
+    
+    - name: "mortality"
+      description: "Survival analysis"
+      event_column: "death_occurred"
+
+# Model Configurations
+models:
+  # Logistic Regression
+  logistic_regression:
+    enabled: true
+    hyperparameters:
+      penalty: ["l1", "l2", "elasticnet"]
+      C: [0.001, 0.01, 0.1, 1, 10, 100]
+      solver: ["lbfgs", "saga"]
+      max_iter: 1000
+    use_cases:
+      - "viral_suppression"
+      - "drug_resistance"
+  
+  # Random Forest
+  random_forest:
+    enabled: true
+    hyperparameters:
+      n_estimators: [100, 200, 500]
+      max_depth: [10, 20, 30, null]
+      min_samples_split: [2, 5, 10]
+      min_samples_leaf: [1, 2, 4]
+      max_features: ["sqrt", "log2"]
+      class_weight: ["balanced", null]
+    use_cases:
+      - "viral_suppression"
+      - "treatment_adherence"
+      - "risk_category"
+  
+  # Gradient Boosting (XGBoost)
+  xgboost:
+    enabled: true
+    hyperparameters:
+      n_estimators: [100, 200, 500]
+      learning_rate: [0.01, 0.05, 0.1, 0.3]
+      max_depth: [3, 5, 7, 9]
+      min_child_weight: [1, 3, 5]
+      subsample: [0.6, 0.8, 1.0]
+      colsample_bytree: [0.6, 0.8, 1.0]
+      gamma: [0, 0.1, 0.2]
+      scale_pos_weight: [1, 5, 10]
+    use_cases:
+      - "viral_suppression"
+      - "treatment_adherence"
+      - "drug_resistance"
+      - "risk_category"
+  
+  # LightGBM
+  lightgbm:
+    enabled: true
+    hyperparameters:
+      n_estimators: [100, 200, 500]
+      learning_rate: [0.01, 0.05, 0.1]
+      num_leaves: [31, 63, 127]
+      max_depth: [-1, 10, 20]
+      min_child_samples: [20, 50, 100]
+      subsample: [0.6, 0.8, 1.0]
+      colsample_bytree: [0.6, 0.8, 1.0]
+      class_weight: ["balanced", null]
+    use_cases:
+      - "viral_suppression"
+      - "treatment_adherence"
+      - "risk_category"
+  
+  # CatBoost
+  catboost:
+    enabled: true
+    hyperparameters:
+      iterations: [100, 200, 500]
+      learning_rate: [0.01, 0.05, 0.1]
+      depth: [4, 6, 8, 10]
+      l2_leaf_reg: [1, 3, 5, 7]
+      border_count: [32, 64, 128]
+      auto_class_weights: ["Balanced", "SqrtBalanced", null]
+    use_cases:
+      - "viral_suppression"
+      - "treatment_adherence"
+      - "risk_category"
+  
+  # Neural Network
+  neural_network:
+    enabled: true
+    architecture:
+      input_layer: "auto"
+      hidden_layers:
+        - units: 128
+          activation: "relu"
+          dropout: 0.3
+        - units: 64
+          activation: "relu"
+          dropout: 0.3
+        - units: 32
+          activation: "relu"
+          dropout: 0.2
+      output_layer: "auto"
+    hyperparameters:
+      optimizer: "adam"
+      learning_rate: [0.001, 0.0001]
+      batch_size: [32, 64, 128]
+      epochs: 100
+      early_stopping_patience: 10
+    use_cases:
+      - "viral_suppression"
+      - "cd4_count_change"
+  
+  # Survival Analysis (Cox Proportional Hazards)
+  cox_ph:
+    enabled: true
+    hyperparameters:
+      penalizer: [0.0, 0.01, 0.1]
+      l1_ratio: [0.0, 0.5, 1.0]
+    use_cases:
+      - "time_to_aids"
+      - "mortality"
+
+# Hyperparameter Tuning
+hyperparameter_tuning:
+  method: "optuna"  # grid_search, random_search, optuna, hyperopt
+  n_trials: 100  # For Bayesian optimization
+  timeout: 3600  # seconds
+  n_jobs: -1
+  cv_folds: 5
+  scoring: "roc_auc"  # roc_auc, f1, accuracy, precision, recall
+  optimization_direction: "maximize"
+
+# Model Evaluation Metrics
+evaluation:
+  classification:
+    metrics:
+      - "accuracy"
+      - "precision"
+      - "recall"
+      - "f1_score"
+      - "roc_auc"
+      - "pr_auc"
+      - "log_loss"
+      - "cohen_kappa"
+      - "matthews_corrcoef"
+    
+    threshold_optimization: true
+    threshold_metric: "f1_score"
+    
+    confusion_matrix: true
+    classification_report: true
+    roc_curve: true
+    precision_recall_curve: true
+  
+  regression:
+    metrics:
+      - "mae"
+      - "mse"
+      - "rmse"
+      - "r2_score"
+      - "mape"
+      - "explained_variance"
+    
+    residual_plots: true
+    prediction_plots: true
+  
+  survival:
+    metrics:
+      - "concordance_index"
+      - "log_likelihood"
+      - "aic"
+      - "bic"
+    
+    survival_curves: true
+    hazard_ratios: true
+
+# Feature Importance
+feature_importance:
+  calculate: true
+  methods:
+    - "built_in"
+    - "permutation"
+    - "shap"
+  top_n_features: 20
+  plot_importance: true
+
+# Model Interpretability
+interpretability:
+  shap:
+    enabled: true
+    plot_types:
+      - "summary"
+      - "waterfall"
+      - "force"
+      - "dependence"
+    max_samples: 1000
+  
+  lime:
+    enabled: true
+    n_samples: 1000
+    max_features: 10
+  
+  partial_dependence:
+    enabled: true
+    features:
+      - "cd4_count"
+      - "viral_load"
+      - "age"
+      - "treatment_duration"
+
+# Model Selection
+model_selection:
+  strategy: "best_cv_score"  # best_cv_score, ensemble, stacking
+  selection_metric: "roc_auc"
+  
+  ensemble:
+    enabled: true
+    method: "voting"  # voting, stacking, blending
+    voting_type: "soft"  # hard, soft
+    weights: "auto"
+  
+  stacking:
+    enabled: false
+    meta_model: "logistic_regression"
+    cv_folds: 5
+
+# Training Configuration
+training:
+  # Class Imbalance Handling
+  handle_imbalance: true
+  imbalance_method: "smote"  # smote, adasyn, random_oversample, random_undersample, class_weight
+  
+  # Missing Value Handling
+  handle_missing: true
+  missing_strategy:
+    numeric: "iterative_imputer"
+    categorical: "most_frequent"
+  
+  # Feature Selection
+  feature_selection:
+    enabled: true
+    method: "recursive_feature_elimination"  # rfe, select_k_best, select_from_model
+    n_features: 50
+  
+  # Calibration
+  calibration:
+    enabled: true
+    method: "sigmoid"  # sigmoid, isotonic
+  
+  # Save Models
+  save_models: true
+  model_path: "data/models"
+  model_format: "joblib"  # joblib, pickle, onnx
+  
+  # Model Versioning
+  versioning:
+    enabled: true
+    track_experiments: true
+    experiment_tracker: "mlflow"  # mlflow, wandb, tensorboard
+
+# Prediction Configuration
+prediction:
+  batch_size: 1000
+  return_probabilities: true
+  return_confidence: true
+  
+  # Uncertainty Quantification
+  uncertainty:
+    enabled: true
+    method: "quantile_regression"  # quantile_regression, bootstrap, bayesian
+
+# Model Monitoring
+monitoring:
+  enabled: true
+  
+  # Data Drift Detection
+  data_drift:
+    enabled: true
+    method: "kolmogorov_smirnov"  # ks, psi, chi_square
+    threshold: 0.05
+    alert_on_drift: true
+  
+  # Concept Drift Detection
+  concept_drift:
+    enabled: true
+    method: "page_hinkley"
+    threshold: 0.01
+    alert_on_drift: true
+  
+  # Performance Degradation
+  performance_monitoring:
+    enabled: true
+    metrics:
+      - "roc_auc"
+      - "f1_score"
+    threshold_drop: 0.05
+    retraining_trigger: true
+
+# Retraining Strategy
+retraining:
+  enabled: true
+  triggers:
+    - "performance_degradation"
+    - "data_drift"
+    - "concept_drift"
+    - "scheduled"
+  
+  schedule:
+    frequency: "monthly"
+    day_of_month: 1
+    time: "00:00"
+  
+  validation_before_deployment: true
+  minimum_performance_improvement: 0.02
+  
+  # A/B Testing
+  ab_testing:
+    enabled: true
+    traffic_split: 0.1  # 10% to new model
+    duration_days: 7
+    success_metric: "roc_auc"
+
+# Deployment Configuration
+deployment:
+  environment: "${DEPLOYMENT_ENV}"  # dev, staging, production
+  
+  # API Deployment
+  api:
+    enabled: true
+    framework: "fastapi"
+    host: "0.0.0.0"
+    port: 8000
+    workers: 4
+    
+  # Batch Prediction
+  batch:
+    enabled: true
+    schedule: "daily"
+    input_path: "data/processed/inference_input"
+    output_path: "data/analytics/predictions"
+  
+  # Model Registry
+  registry:
+    enabled: true
+    backend: "mlflow"
+    tracking_uri: "${MLFLOW_TRACKING_URI}"
+

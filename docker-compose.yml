@@ -1,0 +1,140 @@
+# Docker Compose Configuration for HIV Medical Analytics Platform
+# Includes services for database, caching, and streaming
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: hiv_analytics_postgres
+    environment:
+      POSTGRES_DB: hiv_analytics
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hiv_analytics_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: hiv_analytics_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - hiv_analytics_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MongoDB for Clinical Data
+  mongodb:
+    image: mongo:6
+    container_name: hiv_analytics_mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: mongo_password
+      MONGO_INITDB_DATABASE: hiv_clinical
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - hiv_analytics_network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Apache Kafka (Optional - for real-time streaming)
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: hiv_analytics_zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - hiv_analytics_network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: hiv_analytics_kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    networks:
+      - hiv_analytics_network
+
+  # MLflow Tracking Server (Optional - for ML model tracking)
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.7.1
+    container_name: hiv_analytics_mlflow
+    ports:
+      - "5000:5000"
+    environment:
+      - BACKEND_STORE_URI=sqlite:///mlflow.db
+      - DEFAULT_ARTIFACT_ROOT=/mlflow/artifacts
+    volumes:
+      - mlflow_data:/mlflow
+    command: mlflow server --host 0.0.0.0 --port 5000
+    networks:
+      - hiv_analytics_network
+
+  # Streamlit Dashboard (Optional - run dashboard in container)
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dashboard
+    container_name: hiv_analytics_dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./:/app
+      - ./data:/app/data
+    environment:
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+      - MONGO_HOST=mongodb
+    depends_on:
+      - postgres
+      - redis
+      - mongodb
+    networks:
+      - hiv_analytics_network
+    profiles:
+      - dashboard  # Optional service
+
+volumes:
+  postgres_data:
+  redis_data:
+  mongodb_data:
+  mlflow_data:
+
+networks:
+  hiv_analytics_network:
+    driver: bridge
+

@@ -1,0 +1,332 @@
+# ETL Pipeline Configuration
+
+# Pipeline Metadata
+pipeline:
+  name: "HIV Medical Analytics ETL"
+  version: "1.0.0"
+  environment: "${ENVIRONMENT}"  # dev, staging, production
+  logging_level: "${LOG_LEVEL}"  # DEBUG, INFO, WARNING, ERROR
+
+# Extraction Configuration
+extraction:
+  # Batch Processing
+  batch:
+    chunk_size: 10000
+    max_workers: 4
+    timeout: 300
+    retry_attempts: 3
+    retry_delay: 5  # seconds
+  
+  # API Extraction
+  api:
+    rate_limit_buffer: 0.9  # Use 90% of rate limit
+    connection_pool_size: 10
+    keep_alive: true
+    verify_ssl: true
+  
+  # Database Extraction
+  database:
+    fetch_size: 5000
+    use_connection_pool: true
+    pool_size: 5
+    max_overflow: 10
+    pool_timeout: 30
+
+# Transformation Configuration
+transformation:
+  # Data Cleaning
+  cleaning:
+    remove_duplicates: true
+    handle_missing_values: true
+    missing_value_strategy:
+      numeric: "median"  # mean, median, mode, ffill, bfill, drop
+      categorical: "mode"
+      datetime: "ffill"
+    outlier_detection: true
+    outlier_method: "iqr"  # iqr, zscore, isolation_forest
+    outlier_threshold: 3.0
+  
+  # Data Standardization
+  standardization:
+    date_format: "%Y-%m-%d"
+    datetime_format: "%Y-%m-%d %H:%M:%S"
+    timezone: "UTC"
+    country_codes: "iso3"  # iso2, iso3, name
+    
+  # Data Enrichment
+  enrichment:
+    calculate_derived_fields: true
+    add_geographic_data: true
+    add_temporal_features: true
+    add_demographic_indices: true
+    
+  # Feature Engineering
+  feature_engineering:
+    create_age_groups: true
+    age_group_bins: [0, 15, 24, 34, 44, 54, 64, 100]
+    age_group_labels: ["0-14", "15-24", "25-34", "35-44", "45-54", "55-64", "65+"]
+    
+    create_time_features: true
+    time_features:
+      - "year"
+      - "quarter"
+      - "month"
+      - "week"
+      - "day_of_week"
+    
+    create_risk_scores: true
+    risk_score_factors:
+      - "transmission_route"
+      - "age_group"
+      - "geographic_region"
+      - "comorbidities"
+  
+  # Data Validation
+  validation:
+    validate_schema: true
+    validate_ranges: true
+    validate_relationships: true
+    fail_on_error: false  # Continue with warnings
+    
+# Loading Configuration
+loading:
+  # Database Loading
+  database:
+    batch_size: 5000
+    use_bulk_insert: true
+    create_indexes: true
+    update_strategy: "upsert"  # insert, update, upsert
+    conflict_resolution: "latest"  # latest, earliest, manual
+  
+  # File Loading
+  file:
+    format: "parquet"  # parquet, csv, json, avro
+    compression: "snappy"  # snappy, gzip, brotli, none
+    partitioning:
+      enabled: true
+      partition_by:
+        - "year"
+        - "region"
+    
+  # Data Lake Structure
+  data_lake:
+    bronze_layer: "data/raw"
+    silver_layer: "data/processed"
+    gold_layer: "data/analytics"
+    
+    bronze:
+      description: "Raw data as ingested from sources"
+      retention_days: 365
+    
+    silver:
+      description: "Cleaned, validated, and standardized data"
+      retention_days: 730
+    
+    gold:
+      description: "Analytics-ready aggregated data"
+      retention_days: 1825
+
+# Data Quality Rules
+data_quality:
+  rules:
+    # Completeness Rules
+    - name: "patient_id_not_null"
+      type: "not_null"
+      column: "patient_id"
+      severity: "critical"
+    
+    - name: "diagnosis_date_not_null"
+      type: "not_null"
+      column: "diagnosis_date"
+      severity: "critical"
+    
+    - name: "age_not_null"
+      type: "not_null"
+      column: "age"
+      severity: "high"
+    
+    # Range Rules
+    - name: "age_range_valid"
+      type: "range"
+      column: "age"
+      min: 0
+      max: 120
+      severity: "high"
+    
+    - name: "cd4_count_positive"
+      type: "range"
+      column: "cd4_count"
+      min: 0
+      max: 5000
+      severity: "medium"
+    
+    - name: "viral_load_positive"
+      type: "range"
+      column: "viral_load"
+      min: 0
+      severity: "medium"
+    
+    # Categorical Rules
+    - name: "gender_valid"
+      type: "categorical"
+      column: "gender"
+      allowed_values: ["Male", "Female", "Other", "Unknown"]
+      severity: "high"
+    
+    - name: "transmission_route_valid"
+      type: "categorical"
+      column: "transmission_route"
+      allowed_values:
+        - "Heterosexual"
+        - "MSM"
+        - "IDU"
+        - "MTCT"
+        - "Blood_Products"
+        - "Unknown"
+      severity: "medium"
+    
+    # Consistency Rules
+    - name: "death_after_diagnosis"
+      type: "custom"
+      rule: "death_date > diagnosis_date"
+      severity: "critical"
+    
+    - name: "treatment_after_diagnosis"
+      type: "custom"
+      rule: "treatment_start_date >= diagnosis_date"
+      severity: "high"
+  
+  # Thresholds
+  thresholds:
+    critical_failure_rate: 0.01  # 1%
+    high_failure_rate: 0.05      # 5%
+    medium_failure_rate: 0.10    # 10%
+    
+  # Actions on Failure
+  actions:
+    critical:
+      - "stop_pipeline"
+      - "send_alert"
+      - "log_error"
+    high:
+      - "send_alert"
+      - "log_warning"
+      - "quarantine_data"
+    medium:
+      - "log_warning"
+      - "flag_for_review"
+
+# Monitoring & Alerting
+monitoring:
+  enabled: true
+  
+  metrics:
+    - "records_processed"
+    - "processing_time"
+    - "error_rate"
+    - "data_quality_score"
+    - "pipeline_latency"
+  
+  alerts:
+    email:
+      enabled: true
+      recipients:
+        - "${ALERT_EMAIL_PRIMARY}"
+        - "${ALERT_EMAIL_SECONDARY}"
+      smtp_server: "${SMTP_SERVER}"
+      smtp_port: 587
+    
+    slack:
+      enabled: true
+      webhook_url: "${SLACK_WEBHOOK_URL}"
+      channel: "#hiv-data-alerts"
+    
+    conditions:
+      - metric: "error_rate"
+        threshold: 0.05
+        comparison: "greater_than"
+      - metric: "data_quality_score"
+        threshold: 0.95
+        comparison: "less_than"
+      - metric: "pipeline_latency"
+        threshold: 3600  # seconds
+        comparison: "greater_than"
+
+# Performance Optimization
+performance:
+  # Parallel Processing
+  parallel:
+    enabled: true
+    max_workers: 8
+    use_multiprocessing: true
+  
+  # Caching
+  cache:
+    enabled: true
+    backend: "redis"
+    ttl: 3600  # seconds
+    max_memory: "2gb"
+  
+  # Incremental Processing
+  incremental:
+    enabled: true
+    watermark_column: "last_updated"
+    checkpoint_location: "data/checkpoints"
+
+# Scheduling
+scheduling:
+  # Airflow Configuration
+  airflow:
+    dag_id: "hiv_medical_etl"
+    schedule_interval: "@daily"
+    catchup: false
+    max_active_runs: 1
+    default_args:
+      owner: "data-engineering"
+      depends_on_past: false
+      email_on_failure: true
+      email_on_retry: false
+      retries: 3
+      retry_delay: 300  # seconds
+  
+  # Pipeline Stages
+  stages:
+    - name: "extract_who_data"
+      enabled: true
+      depends_on: []
+    
+    - name: "extract_unaids_data"
+      enabled: true
+      depends_on: []
+    
+    - name: "extract_cdc_data"
+      enabled: true
+      depends_on: []
+    
+    - name: "extract_clinical_data"
+      enabled: true
+      depends_on: []
+    
+    - name: "transform_data"
+      enabled: true
+      depends_on:
+        - "extract_who_data"
+        - "extract_unaids_data"
+        - "extract_cdc_data"
+        - "extract_clinical_data"
+    
+    - name: "validate_data"
+      enabled: true
+      depends_on:
+        - "transform_data"
+    
+    - name: "load_data"
+      enabled: true
+      depends_on:
+        - "validate_data"
+    
+    - name: "update_analytics"
+      enabled: true
+      depends_on:
+        - "load_data"
+
