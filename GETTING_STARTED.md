@@ -1,4 +1,4 @@
-# 🚀 Getting Started - HIV Medical Analytics Platform
+#  Getting Started - HIV Medical Analytics Platform
 
 ## Welcome!
 
@@ -6,43 +6,43 @@ You've just built a **production-grade, complex HIV medical analytics platform**
 
 ---
 
-## 🎯 What You Have Built
+##  What You Have Built
 
 ### 1. **Comprehensive Data Engineering Pipeline**
-- ✅ Multi-source data ingestion (WHO, UNAIDS, CDC APIs)
-- ✅ Real-time streaming with Apache Kafka
-- ✅ ETL pipeline with data quality validation
-- ✅ Bronze/Silver/Gold data lake architecture
-- ✅ Synthetic data generator for testing
+-  Multi-source data ingestion (WHO, UNAIDS, CDC APIs)
+-  Real-time streaming with Apache Kafka
+-  ETL pipeline with data quality validation
+-  Bronze/Silver/Gold data lake architecture
+-  Synthetic data generator for testing
 
 ### 2. **Advanced Analytics Modules**
-- ✅ **Transmission Analysis**: Identify high-risk populations, analyze transmission routes
-- ✅ **Treatment Efficacy**: Compare regimens, predict outcomes
-- ✅ **Geographic Patterns**: Hotspot detection, regional analysis
-- ✅ **Risk Scoring**: Composite risk assessments
+-  **Transmission Analysis**: Identify high-risk populations, analyze transmission routes
+-  **Treatment Efficacy**: Compare regimens, predict outcomes
+-  **Geographic Patterns**: Hotspot detection, regional analysis
+-  **Risk Scoring**: Composite risk assessments
 
 ### 3. **Machine Learning Models**
-- ✅ Viral suppression prediction (XGBoost, Random Forest, etc.)
-- ✅ Feature importance analysis
-- ✅ Model evaluation and validation
-- ✅ SHAP interpretability
+-  Viral suppression prediction (XGBoost, Random Forest, etc.)
+-  Feature importance analysis
+-  Model evaluation and validation
+-  SHAP interpretability
 
 ### 4. **Interactive Visualizations**
-- ✅ Streamlit dashboard with real-time analytics
-- ✅ Plotly interactive charts
-- ✅ Geographic heatmaps
-- ✅ Treatment comparison visualizations
+-  Streamlit dashboard with real-time analytics
+-  Plotly interactive charts
+-  Geographic heatmaps
+-  Treatment comparison visualizations
 
 ### 5. **Production Infrastructure**
-- ✅ Docker Compose for services
-- ✅ PostgreSQL, MongoDB, Redis integration
-- ✅ Kafka streaming setup
-- ✅ MLflow model tracking
-- ✅ Comprehensive test suite
+-  Docker Compose for services
+-  PostgreSQL, MongoDB, Redis integration
+-  Kafka streaming setup
+-  MLflow model tracking
+-  Comprehensive test suite
 
 ---
 
-## 🏃 Quick Start (5 Minutes)
+##  Quick Start (5 Minutes)
 
 ### Step 1: Install Dependencies
 
@@ -65,7 +65,7 @@ python scripts/generate_synthetic_data.py --n-patients 10000
 
 **Output:**
 ```
-✅ Generated:
+ Generated:
    - 10,000 patients
    - 40,000+ lab results
    - 12,000+ treatment records
@@ -112,7 +112,7 @@ Opens in browser at `http://localhost:8501` with:
 
 ---
 
-## 📊 Key Medical Questions Answered
+##  Key Medical Questions Answered
 
 ### 1. **Transmission Analysis**
 
@@ -187,17 +187,17 @@ effectiveness = analyzer.generate_treatment_effectiveness_score()
 
 ---
 
-## 🔬 Project Structure
+##  Project Structure
 
 ```
 HIV-Medical-Analysis/
 │
-├── 📁 config/                    # Configuration files
+├──  config/                    # Configuration files
 │   ├── data_sources.yaml        # WHO, UNAIDS, CDC configs
 │   ├── pipeline_config.yaml     # ETL settings
 │   └── ml_config.yaml           # Model hyperparameters
 │
-├── 📁 src/                       # Source code
+├──  src/                       # Source code
 │   ├── ingestion/               # Data collection
 │   │   ├── api_clients/         # WHO, UNAIDS, CDC clients
 │   │   ├── streaming/           # Kafka consumers
@@ -222,24 +222,24 @@ HIV-Medical-Analysis/
 │   └── visualization/           # Dashboards
 │       └── dashboards/          # Streamlit apps
 │
-├── 📁 scripts/                   # Automation scripts
+├──  scripts/                   # Automation scripts
 │   ├── generate_synthetic_data.py
 │   ├── run_analytics.py
 │   └── train_ml_models.py
 │
-├── 📁 notebooks/                 # Jupyter notebooks
+├──  notebooks/                 # Jupyter notebooks
 │   └── 01_Getting_Started.ipynb
 │
-├── 📁 tests/                     # Unit tests
+├──  tests/                     # Unit tests
 │   ├── test_transmission_analyzer.py
 │   └── test_ml_models.py
 │
-├── 📁 data/                      # Data storage
+├──  data/                      # Data storage
 │   ├── raw/                     # Raw data
 │   ├── processed/               # Cleaned data
 │   └── models/                  # Trained models
 │
-├── 📁 docs/                      # Documentation
+├──  docs/                      # Documentation
 │   └── QUICK_START.md
 │
 ├── docker-compose.yml           # Docker services
@@ -249,7 +249,7 @@ HIV-Medical-Analysis/
 
 ---
 
-## 💡 Usage Examples
+##  Usage Examples
 
 ### Example 1: Analyze Transmission Patterns
 
@@ -307,7 +307,7 @@ predictor.save_model("data/models/suppression_model.joblib")
 
 ---
 
-## 🧪 Run Tests
+##  Run Tests
 
 ```bash
 # Run all tests
@@ -322,7 +322,7 @@ pytest tests/ --cov=src --cov-report=html
 
 ---
 
-## 🐳 Docker Deployment
+##  Docker Deployment
 
 ```bash
 # Start all services
@@ -347,7 +347,7 @@ docker-compose down
 
 ---
 
-## 📈 Performance Metrics
+##  Performance Metrics
 
 ### Data Processing
 - **Throughput**: 10,000 records/second
@@ -366,7 +366,7 @@ docker-compose down
 
 ---
 
-## 🎓 Learning Resources
+##  Learning Resources
 
 ### Documentation
 - `docs/QUICK_START.md` - Quick start guide
@@ -384,7 +384,7 @@ docker-compose down
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 ### 1. **Real-Time Streaming**
 Process live HIV data from Kafka streams
@@ -406,7 +406,7 @@ Docker, tests, CI/CD, monitoring included
 
 ---
 
-## 🚀 Next Steps
+##  Next Steps
 
 ### 1. Explore the Dashboard
 ```bash
@@ -438,7 +438,7 @@ report = analyzer.generate_summary_report()
 
 ---
 
-## 📞 Support
+##  Support
 
 ### Issues
 Check `logs/` directory for error logs
@@ -451,21 +451,21 @@ Run `pytest tests/ -v` to ensure everything works
 
 ---
 
-## 🎉 Congratulations!
+##  Congratulations!
 
 You now have a **world-class HIV medical analytics platform** that:
 
-✅ Processes multi-source HIV data  
-✅ Answers critical medical questions  
-✅ Predicts patient outcomes with ML  
-✅ Visualizes insights interactively  
-✅ Runs in production environments  
+ Processes multi-source HIV data  
+ Answers critical medical questions  
+ Predicts patient outcomes with ML  
+ Visualizes insights interactively  
+ Runs in production environments  
 
 **Built for medical professionals and data engineers to make data-driven healthcare decisions.**
 
 ---
 
-**From Basic Visualization to Advanced Analytics Platform** 🏥→📊→🤖
+**From Basic Visualization to Advanced Analytics Platform** →→
 
 *Based on your previous HIV report project, now with enterprise-grade capabilities!*
 

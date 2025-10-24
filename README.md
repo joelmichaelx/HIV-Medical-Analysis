@@ -9,12 +9,10 @@
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Key Features](#key-features)
-- [Live Demo](#live-demo)
-- [Screenshots](#screenshots)
 - [Technology Stack](#technology-stack)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
@@ -23,13 +21,14 @@
 - [Data Sources](#data-sources)
 - [Machine Learning Models](#machine-learning-models)
 - [Deployment](#deployment)
+- [Testing](#testing)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
 ---
 
-## 🎯 Overview
+## Overview
 
 The **HIV/AIDS Data Analysis Platform** is a comprehensive, enterprise-grade analytics solution designed to help medical professionals, researchers, and public health officials understand and combat HIV/AIDS through data-driven insights.
 
@@ -45,17 +44,17 @@ Medical professionals need advanced tools to:
 ### Our Solution
 
 This platform provides:
-- **Real-time analytics** on patient data
-- **Machine learning predictions** for treatment outcomes
-- **Interactive visualizations** for complex medical data
-- **Comprehensive data dictionary** for medical terminology
-- **Evidence-based insights** for clinical decision-making
+- Real-time analytics on patient data
+- Machine learning predictions for treatment outcomes
+- Interactive visualizations for complex medical data
+- Comprehensive data dictionary for medical terminology
+- Evidence-based insights for clinical decision-making
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 📊 **Dashboard Sections**
+### Dashboard Sections
 
 1. **Overview Dashboard**
    - Key performance metrics (viral suppression rate, adherence, survival)
@@ -101,64 +100,38 @@ This platform provides:
 
 ---
 
-## 🎬 Live Demo
+## Technology Stack
 
-**🌐 Access the live application:** *(Add your deployment URL here)*
-
-**Local Demo:**
-```bash
-streamlit run src/visualization/dashboards/main_dashboard.py
-```
-
----
-
-## 📸 Screenshots
-
-### Dashboard Overview
-![Dashboard Overview](docs/images/dashboard_overview.png)
-
-### ML Predictions
-![ML Predictions](docs/images/ml_predictions.png)
-
-### Geographic Analysis
-![Geographic Analysis](docs/images/geographic_insights.png)
-
-*(Add screenshots after deployment)*
-
----
-
-## 🛠 Technology Stack
-
-### **Data Processing & Analysis**
+### Data Processing & Analysis
 - **pandas** 2.1.4 - Data manipulation and analysis
 - **numpy** 1.26.2 - Numerical computing
 - **polars** - High-performance data processing
 - **pyarrow** - Columnar data format
 
-### **Machine Learning**
+### Machine Learning
 - **scikit-learn** 1.4.0 - ML algorithms
 - **XGBoost** 2.0.3 - Gradient boosting
 - **LightGBM** - Fast gradient boosting
 - **imbalanced-learn** - Handling imbalanced datasets
 - **SHAP** - Model interpretability
 
-### **Statistical Analysis**
+### Statistical Analysis
 - **scipy** 1.11.4 - Statistical functions
 - **statsmodels** 0.14.1 - Statistical modeling
 - **lifelines** 0.28.0 - Survival analysis
 
-### **Visualization**
+### Visualization
 - **Streamlit** 1.29.0 - Interactive web apps
 - **Plotly** 5.18.0 - Interactive charts
 - **matplotlib** 3.8.2 - Static visualizations
 - **seaborn** 0.13.0 - Statistical graphics
 
-### **Data Validation**
+### Data Validation
 - **pydantic** 2.5.3 - Data validation
 - **great-expectations** - Data quality
 - **pandera** - DataFrame validation
 
-### **Infrastructure**
+### Infrastructure
 - **Docker** - Containerization
 - **PostgreSQL** - Database
 - **Redis** - Caching
@@ -167,7 +140,7 @@ streamlit run src/visualization/dashboards/main_dashboard.py
 
 ---
 
-## 📥 Installation
+## Installation
 
 ### Prerequisites
 
@@ -180,7 +153,7 @@ streamlit run src/visualization/dashboards/main_dashboard.py
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/HIV-Medical-Analysis.git
+git clone https://github.com/joelmichaelx/HIV-Medical-Analysis.git
 cd HIV-Medical-Analysis
 
 # Create virtual environment
@@ -198,7 +171,7 @@ streamlit run src/visualization/dashboards/main_dashboard.py
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/HIV-Medical-Analysis.git
+git clone https://github.com/joelmichaelx/HIV-Medical-Analysis.git
 cd HIV-Medical-Analysis
 
 # Build and run with Docker Compose
@@ -209,7 +182,7 @@ docker-compose up -d
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Generate Synthetic Data
 
@@ -235,11 +208,11 @@ python scripts/train_ml_models.py
 streamlit run src/visualization/dashboards/main_dashboard.py
 ```
 
-**Access the dashboard at:** http://localhost:8501
+Access the dashboard at: http://localhost:8501
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 HIV-Medical-Analysis/
@@ -294,6 +267,8 @@ HIV-Medical-Analysis/
 │   ├── ROADMAP.md
 │   └── IMMEDIATE_NEXT_STEPS.md
 │
+├── SNAPSHOTS/                  # Application screenshots
+│
 ├── docker-compose.yml          # Docker services
 ├── requirements.txt            # Python dependencies
 ├── requirements_deploy.txt     # Deployment dependencies
@@ -303,7 +278,7 @@ HIV-Medical-Analysis/
 
 ---
 
-## 📖 Usage
+## Usage
 
 ### Dashboard Navigation
 
@@ -329,7 +304,7 @@ Use the sidebar slider to control the number of patients in the analysis (1,000 
 
 ---
 
-## 📊 Data Sources
+## Data Sources
 
 ### Synthetic Data (Current)
 
@@ -349,7 +324,7 @@ The platform is designed to integrate with:
 
 ---
 
-## 🤖 Machine Learning Models
+## Machine Learning Models
 
 ### Viral Suppression Prediction
 
@@ -375,7 +350,7 @@ The platform is designed to integrate with:
 
 ---
 
-## 🚀 Deployment
+## Deployment
 
 ### Recommended Platforms
 
@@ -397,7 +372,7 @@ The platform is designed to integrate with:
    - Perfect for ML apps
    - Strong community
 
-**Full deployment guide:** See [DEPLOYMENT.md](DEPLOYMENT.md)
+Full deployment guide: See [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ### Environment Variables
 
@@ -414,47 +389,7 @@ CDC_API_KEY=your_key_here
 
 ---
 
-## 🤝 Contributing
-
-We welcome contributions! Here's how you can help:
-
-### How to Contribute
-
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Commit your changes**
-   ```bash
-   git commit -m "Add amazing feature"
-   ```
-4. **Push to your branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-5. **Open a Pull Request**
-
-### Contribution Areas
-
-- 🐛 Bug fixes
-- ✨ New features
-- 📝 Documentation improvements
-- 🧪 Additional tests
-- 🎨 UI/UX enhancements
-- 📊 New analytics modules
-- 🤖 ML model improvements
-
-### Code Style
-
-- Follow PEP 8 guidelines
-- Add docstrings to functions
-- Write unit tests for new features
-- Update documentation
-
----
-
-## 🧪 Testing
+## Testing
 
 Run the test suite:
 
@@ -471,7 +406,38 @@ pytest tests/test_transmission_analyzer.py
 
 ---
 
-## 📜 License
+## Contributing
+
+We welcome contributions! Here's how you can help:
+
+### How to Contribute
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m "Add amazing feature"`
+4. Push to your branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+### Contribution Areas
+
+- Bug fixes
+- New features
+- Documentation improvements
+- Additional tests
+- UI/UX enhancements
+- New analytics modules
+- ML model improvements
+
+### Code Style
+
+- Follow PEP 8 guidelines
+- Add docstrings to functions
+- Write unit tests for new features
+- Update documentation
+
+---
+
+## License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
@@ -493,7 +459,7 @@ copies or substantial portions of the Software.
 
 ---
 
-## 🏥 Clinical Disclaimer
+## Clinical Disclaimer
 
 **IMPORTANT:** This platform is designed for **research and educational purposes**. It should NOT be used as the sole basis for clinical decisions without validation by qualified medical professionals.
 
@@ -504,7 +470,7 @@ copies or substantial portions of the Software.
 
 ---
 
-## 🌟 Acknowledgments
+## Acknowledgments
 
 - **World Health Organization (WHO)** - HIV treatment guidelines
 - **UNAIDS** - Global HIV statistics and insights
@@ -515,22 +481,21 @@ copies or substantial portions of the Software.
 
 ---
 
-## 📧 Contact
+## Contact
 
 **Project Maintainer:** Joel Omoroje  
 **GitHub:** [@joelmichaelx](https://github.com/joelmichaelx)  
 **Project Link:** [https://github.com/joelmichaelx/HIV-Medical-Analysis](https://github.com/joelmichaelx/HIV-Medical-Analysis)
 
-**For questions or support:**
+For questions or support:
 - Open an issue on GitHub
-- Email: *(add your email)*
-- LinkedIn: *(add your LinkedIn)*
+- Contribute to discussions
 
 ---
 
-## 🗺 Roadmap
+## Roadmap
 
-### Completed ✅
+### Completed
 - [x] Synthetic data generation
 - [x] Interactive Streamlit dashboard
 - [x] Transmission analysis module
@@ -539,13 +504,13 @@ copies or substantial portions of the Software.
 - [x] Data dictionary & guide
 - [x] Docker containerization
 
-### In Progress 🚧
+### In Progress
 - [ ] Real-time data integration (WHO, UNAIDS, CDC APIs)
 - [ ] User authentication & authorization
 - [ ] Multi-language support
 - [ ] Mobile-responsive design
 
-### Future Features 🔮
+### Future Features
 - [ ] Advanced NLP for clinical notes
 - [ ] Automated reporting
 - [ ] Email alert system
@@ -558,23 +523,17 @@ For detailed roadmap, see [docs/ROADMAP.md](docs/ROADMAP.md)
 
 ---
 
-## 📈 Project Stats
+## Project Stats
 
-- **Lines of Code:** 9,000+
-- **Files:** 47
+- **Lines of Code:** 10,000+
+- **Files:** 48
 - **Python Packages:** 40+
 - **Test Coverage:** 85%+
 - **Documentation Pages:** 10+
 
 ---
 
-## ⭐ Star History
-
-If you find this project useful, please consider giving it a star on GitHub! ⭐
-
----
-
-## 🎓 Use Cases
+## Use Cases
 
 ### For Researchers
 - Analyze large-scale HIV/AIDS datasets
@@ -602,7 +561,7 @@ If you find this project useful, please consider giving it a star on GitHub! ⭐
 
 ---
 
-## 🔐 Security & Privacy
+## Security & Privacy
 
 - No real patient data is included
 - All synthetic data is clearly labeled
@@ -612,36 +571,34 @@ If you find this project useful, please consider giving it a star on GitHub! ⭐
 
 ---
 
-## 📚 Additional Resources
+## Additional Resources
 
 - [Getting Started Guide](GETTING_STARTED.md)
 - [Deployment Guide](DEPLOYMENT.md)
-- [API Documentation](docs/API.md) *(coming soon)*
-- [Contributing Guidelines](CONTRIBUTING.md) *(coming soon)*
-- [Code of Conduct](CODE_OF_CONDUCT.md) *(coming soon)*
+- [Quick Start](docs/QUICK_START.md)
+- [Project Roadmap](docs/ROADMAP.md)
 
 ---
 
 <div align="center">
 
-**Built with ❤️ for the global fight against HIV/AIDS**
+**Built with dedication for the global fight against HIV/AIDS**
 
 [Report Bug](https://github.com/joelmichaelx/HIV-Medical-Analysis/issues) · 
-[Request Feature](https://github.com/joelmichaelx/HIV-Medical-Analysis/issues) · 
-[Documentation](https://github.com/joelmichaelx/HIV-Medical-Analysis/wiki)
+[Request Feature](https://github.com/joelmichaelx/HIV-Medical-Analysis/issues)
 
 </div>
 
 ---
 
-## 💡 Tips for Best Results
+## Tips for Best Results
 
-1. **Start with 5,000 patients** for optimal performance
-2. **Use the Data Dictionary** section to understand metrics
-3. **Explore ML Predictions** to see model interpretability
-4. **Adjust filters** to focus on specific demographics
-5. **Export visualizations** for presentations
+1. Start with 5,000 patients for optimal performance
+2. Use the Data Dictionary section to understand metrics
+3. Explore ML Predictions to see model interpretability
+4. Adjust filters to focus on specific demographics
+5. Export visualizations for presentations
 
 ---
 
-**Made with Streamlit, Python, and a passion for data-driven healthcare** 🏥📊🤖
+**Made with Streamlit, Python, and a passion for data-driven healthcare**

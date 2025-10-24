@@ -1,14 +1,14 @@
 # Git Push Instructions
 
-## ✅ What's Ready
+##  What's Ready
 
 Your project is **fully committed** to local Git with:
-- ✅ Comprehensive README.md
-- ✅ MIT License
-- ✅ Deployment files for 5+ platforms
-- ✅ Complete source code
-- ✅ Documentation
-- ✅ Tests
+-  Comprehensive README.md
+-  MIT License
+-  Deployment files for 5+ platforms
+-  Complete source code
+-  Documentation
+-  Tests
 
 **Commits:**
 1. Initial commit: 47 files, 9,823 insertions
@@ -16,7 +16,7 @@ Your project is **fully committed** to local Git with:
 
 ---
 
-## 🚀 Push to GitHub - Step by Step
+##  Push to GitHub - Step by Step
 
 ### Step 1: Create GitHub Repository
 
@@ -54,7 +54,7 @@ git push -u origin main
 
 ---
 
-## 🌐 Alternative: If You Already Have a GitHub Repo
+##  Alternative: If You Already Have a GitHub Repo
 
 ```bash
 # Check current remotes
@@ -72,7 +72,7 @@ git push -u origin main
 
 ---
 
-## 📋 Git Repository Description
+##  Git Repository Description
 
 When creating your GitHub repo, use this description:
 
@@ -94,7 +94,7 @@ Advanced HIV/AIDS medical data analysis platform with ML predictions, interactiv
 
 ---
 
-## 🎯 After Pushing to GitHub
+##  After Pushing to GitHub
 
 ### 1. Update README
 
@@ -119,7 +119,7 @@ On your GitHub repo page:
 
 ---
 
-## 🚀 Deploy After Push
+##  Deploy After Push
 
 ### Option 1: Streamlit Community Cloud (FREE, Easiest)
 
@@ -134,7 +134,7 @@ On your GitHub repo page:
    - Requirements file: `requirements_deploy.txt`
 5. Click "Deploy"
 
-**Live in 2-3 minutes!** 🎉
+**Live in 2-3 minutes!** 
 
 ---
 
@@ -182,7 +182,7 @@ railway up
 
 ---
 
-## 🔧 Troubleshooting
+##  Troubleshooting
 
 ### Error: "remote origin already exists"
 
@@ -216,31 +216,31 @@ git push origin main
 
 ---
 
-## 📊 What Gets Pushed
+##  What Gets Pushed
 
 ### Files Included (47 files):
-- ✅ All source code (`src/`)
-- ✅ Configuration files (`config/`)
-- ✅ Scripts (`scripts/`)
-- ✅ Tests (`tests/`)
-- ✅ Documentation (`docs/`)
-- ✅ README.md (comprehensive)
-- ✅ LICENSE (MIT)
-- ✅ Deployment configs (Render, Railway, Heroku, HF Spaces)
-- ✅ Docker files
-- ✅ Requirements files
+-  All source code (`src/`)
+-  Configuration files (`config/`)
+-  Scripts (`scripts/`)
+-  Tests (`tests/`)
+-  Documentation (`docs/`)
+-  README.md (comprehensive)
+-  LICENSE (MIT)
+-  Deployment configs (Render, Railway, Heroku, HF Spaces)
+-  Docker files
+-  Requirements files
 
 ### Files Excluded (via .gitignore):
-- ❌ Virtual environment (`venv/`)
-- ❌ Cache files (`__pycache__/`)
-- ❌ Data files (`data/raw/*`, `data/processed/*`)
-- ❌ Log files (`*.log`)
-- ❌ Environment variables (`.env`)
-- ❌ IDE settings (`.vscode/`, `.idea/`)
+-  Virtual environment (`venv/`)
+-  Cache files (`__pycache__/`)
+-  Data files (`data/raw/*`, `data/processed/*`)
+-  Log files (`*.log`)
+-  Environment variables (`.env`)
+-  IDE settings (`.vscode/`, `.idea/`)
 
 ---
 
-## 🎯 Quick Reference Commands
+##  Quick Reference Commands
 
 ```bash
 # View commit history
@@ -261,7 +261,7 @@ git push origin main
 
 ---
 
-## ✅ Verification Checklist
+##  Verification Checklist
 
 After pushing, verify on GitHub:
 
@@ -276,7 +276,7 @@ After pushing, verify on GitHub:
 
 ---
 
-## 🌟 Next Steps After Push
+##  Next Steps After Push
 
 1. **Deploy to a platform** (Streamlit Cloud recommended)
 2. **Add deployment URL** to README.md
@@ -288,7 +288,7 @@ After pushing, verify on GitHub:
 
 ---
 
-## 📧 Need Help?
+##  Need Help?
 
 If you encounter issues:
 1. Check GitHub's documentation
@@ -298,16 +298,16 @@ If you encounter issues:
 
 ---
 
-**Ready to push? Follow Step 1-3 above!** 🚀
+**Ready to push? Follow Step 1-3 above!** 
 
 ---
 
-## 🎉 After Successful Push
+##  After Successful Push
 
 Your repository will be live at:
 ```
 https://github.com/YOUR_USERNAME/HIV-Medical-Analysis
 ```
 
-**Congratulations!** You've successfully created and published a professional medical analytics platform! 🏥📊🤖
+**Congratulations!** You've successfully created and published a professional medical analytics platform! 
 

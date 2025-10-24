@@ -4,15 +4,15 @@ This guide covers multiple deployment options for the HIV/AIDS Data Analysis Pla
 
 ---
 
-## 🚀 Recommended: Streamlit Community Cloud (FREE)
+##  Recommended: Streamlit Community Cloud (FREE)
 
 ### Benefits
-- ✅ **100% Free** hosting
-- ✅ Built specifically for Streamlit apps
-- ✅ Deploy directly from GitHub
-- ✅ Automatic updates on git push
-- ✅ Easy setup (< 5 minutes)
-- ✅ Custom domain support
+-  **100% Free** hosting
+-  Built specifically for Streamlit apps
+-  Deploy directly from GitHub
+-  Automatic updates on git push
+-  Easy setup (< 5 minutes)
+-  Custom domain support
 
 ### Deployment Steps
 
@@ -45,7 +45,7 @@ git push -u origin main
 
 ---
 
-## 🔧 Alternative Deployment Options
+##  Alternative Deployment Options
 
 ### Option 2: Render (Free Tier Available)
 
@@ -149,7 +149,7 @@ docker build -t hiv-analytics .
 
 ---
 
-## 📝 Environment Variables
+##  Environment Variables
 
 For production deployment, set these environment variables:
 
@@ -164,7 +164,7 @@ CDC_API_KEY=your_key_here
 
 ---
 
-## 🔐 Security Considerations
+##  Security Considerations
 
 ### Before Deploying:
 
@@ -186,7 +186,7 @@ data/raw/*
 
 ---
 
-## 📊 Performance Optimization
+##  Performance Optimization
 
 ### For Production:
 
@@ -210,7 +210,7 @@ gatherUsageStats = false
 
 ---
 
-## 🧪 Testing Before Deployment
+##  Testing Before Deployment
 
 Run these checks before deploying:
 
@@ -230,7 +230,7 @@ pip check
 
 ---
 
-## 📱 Monitoring & Logs
+##  Monitoring & Logs
 
 ### Streamlit Cloud:
 
@@ -246,7 +246,7 @@ pip check
 
 ---
 
-## 🔄 Continuous Deployment
+##  Continuous Deployment
 
 ### Automatic Deployments:
 
@@ -258,23 +258,23 @@ All recommended platforms support automatic deployments:
 
 ---
 
-## 💰 Cost Comparison
+##  Cost Comparison
 
 | Platform | Free Tier | Paid Starting | Best For |
 |----------|-----------|---------------|----------|
-| **Streamlit Cloud** | ✅ Yes (3 apps) | $0 | Streamlit apps |
-| **Render** | ✅ Yes | $7/month | General apps |
+| **Streamlit Cloud** |  Yes (3 apps) | $0 | Streamlit apps |
+| **Render** |  Yes | $7/month | General apps |
 | **Railway** | $5 credit/month | $0.000231/GB-hr | Scalable apps |
-| **Heroku** | ❌ No | $7/month | Enterprise |
-| **Vercel** | ❌ Not suitable | N/A | Static sites only |
+| **Heroku** |  No | $7/month | Enterprise |
+| **Vercel** |  Not suitable | N/A | Static sites only |
 
 ---
 
-## 🎯 Recommended Deployment Path
+##  Recommended Deployment Path
 
 ### For This Project:
 
-**🏆 Best Choice: Streamlit Community Cloud**
+** Best Choice: Streamlit Community Cloud**
 
 **Why:**
 1. Free forever (3 apps)
@@ -317,7 +317,7 @@ git push -u origin main
 
 ---
 
-## 📚 Additional Resources
+##  Additional Resources
 
 - [Streamlit Cloud Docs](https://docs.streamlit.io/streamlit-community-cloud)
 - [Render Deployment Guide](https://render.com/docs)
@@ -326,7 +326,7 @@ git push -u origin main
 
 ---
 
-## ✅ Pre-Deployment Checklist
+##  Pre-Deployment Checklist
 
 - [ ] Git repository initialized
 - [ ] All files committed
